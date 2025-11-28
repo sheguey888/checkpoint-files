@@ -1,0 +1,15 @@
+{
+  "name": "checkpoint-design-patterns",
+  "version": "1.0.0",
+  "description": "A shopping cart system implemented using procedural programming and refactored using design patterns.",
+  "main": "src/procedural/shopping-cart.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^27.0.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
