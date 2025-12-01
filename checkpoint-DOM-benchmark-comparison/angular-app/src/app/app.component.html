@@ -1,0 +1,102 @@
+<div class="app">
+  <h1>Angular Todo Benchmark</h1>
+
+  <div class="controls">
+    <div class="input-group">
+      <input
+        [(ngModel)]="taskName"
+        type="text"
+        placeholder="Enter task name"
+        (keypress.enter)="addTask()"
+      />
+      <select [(ngModel)]="taskPriority">
+        <option value="low">Low Priority</option>
+        <option value="medium">Medium Priority</option>
+        <option value="high">High Priority</option>
+      </select>
+      <button class="btn-add" (click)="addTask()">Add Task</button>
+    </div>
+
+    <div class="benchmark-buttons">
+      <button class="btn-benchmark" (click)="benchmarkRender(100)">
+        Generate 100 Tasks
+      </button>
+      <button class="btn-benchmark" (click)="benchmarkRender(500)">
+        Generate 500 Tasks
+      </button>
+      <button class="btn-benchmark" (click)="benchmarkRender(1000)">
+        Generate 1000 Tasks
+      </button>
+    </div>
+
+    <div class="benchmark-buttons">
+      <button class="btn-benchmark" (click)="benchmarkUpdate()">
+        Update 50 Tasks
+      </button>
+      <button class="btn-benchmark" (click)="benchmarkDelete()">
+        Delete 50 Tasks
+      </button>
+      <button class="btn-clear" (click)="clearAllTasks()">Clear All</button>
+    </div>
+
+    <div *ngIf="hasMetrics" class="metrics">
+      <h3>Performance Metrics</h3>
+      <p *ngIf="metrics.renderTime > 0">
+        Last Render Time: {{ metrics.renderTime }}ms
+      </p>
+      <p *ngIf="metrics.updateTime > 0">
+        Last Update Time: {{ metrics.updateTime }}ms
+      </p>
+      <p *ngIf="metrics.deleteTime > 0">
+        Last Delete Time: {{ metrics.deleteTime }}ms
+      </p>
+    </div>
+  </div>
+
+  <div class="task-list">
+    <h2>Tasks ({{ tasks.length }})</h2>
+    <div *ngIf="tasks.length === 0" class="empty-state">
+      No tasks yet. Add one to get started!
+    </div>
+    <div
+      *ngFor="let task of tasks; trackBy: trackByTaskId"
+      [class]="
+        'task-item priority-' +
+        task.priority +
+        (editingId === task.id ? ' editing' : '')
+      "
+    >
+      <ng-container *ngIf="editingId === task.id; else viewMode">
+        <div class="edit-inputs">
+          <input [(ngModel)]="editName" type="text" />
+          <select [(ngModel)]="editPriority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="task-actions">
+          <button class="btn-save" (click)="saveEdit()">Save</button>
+          <button class="btn-cancel" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </ng-container>
+      <ng-template #viewMode>
+        <div class="task-info">
+          <div class="task-name">{{ task.name }}</div>
+          <div class="task-priority">
+            Priority:
+            <span [class]="'badge badge-' + task.priority">{{
+              task.priority
+            }}</span>
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="btn-edit" (click)="startEdit(task)">Edit</button>
+          <button class="btn-delete" (click)="deleteTask(task.id)">
+            Delete
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
