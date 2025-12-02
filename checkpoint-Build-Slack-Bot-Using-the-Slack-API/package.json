@@ -1,0 +1,33 @@
+{
+  "name": "slack-bot-checkpoint",
+  "version": "1.0.0",
+  "description": "A Slack bot built with Node.js and Slack Bolt that handles messages, commands, and events",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "slack-api",
+    "slack-bolt",
+    "nodejs",
+    "events-api",
+    "slash-commands"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/bolt": "^3.17.1",
+    "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
