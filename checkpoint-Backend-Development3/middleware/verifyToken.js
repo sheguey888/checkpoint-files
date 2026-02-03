@@ -1,0 +1,36 @@
+const jwt = require("jsonwebtoken");
+const AppError = require("../utils/AppError");
+const catchAsync = require("../utils/catchAsync");
+
+const verifyToken = catchAsync(async (req, res, next) => {
+  let token;
+
+  // Check for token in cookies first (HTTP-only)
+  if (req.cookies.jwt) {
+    token = req.cookies.jwt;
+  }
+  // Check Authorization header as fallback
+  else if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+
+  if (!token) {
+    return next(
+      new AppError("You are not logged in. Please log in to get access.", 401),
+    );
+  }
+
+  // Verify token
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+  // Attach user info to request
+  req.userId = decoded.id;
+  req.user = decoded;
+
+  next();
+});
+
+module.exports = verifyToken;
