@@ -1,0 +1,13 @@
+{
+  "name": "delivery-optimization",
+  "version": "1.0.0",
+  "description": "Comparative analysis of brute-force vs greedy algorithms for task scheduling",
+  "type": "module",
+  "main": "testAlgorithms.js",
+  "scripts": {
+    "test": "node testAlgorithms.js"
+  },
+  "keywords": ["algorithms", "greedy", "brute-force", "optimization"],
+  "author": "",
+  "license": "MIT"
+}
